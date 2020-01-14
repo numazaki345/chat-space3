@@ -8,12 +8,15 @@ $(function() {
                 <a class="user-search-add chat-group-user__btn chat-group-user__btn--add" data-user-id="${user.id}" data-user-name="${user.name}">追加</a>
               </div>`
     search_list.append(html);
+    return html;
   }
 
-  function appendErrMsgToHTML(msg) {
-    var html = `<div class="chat-group-user clearfix">
-                  <p class="chat-group-user__name">${ msg }</p>
-                </div>`
+  function appendNoUserToSearchList() {
+    let html = `
+      <div class="chat-group-user clearfix">
+        <p class="chat-group-user__name">ユーザーが見つかりません</p>
+      </div>
+    `;
     search_list.append(html);
   }
 
@@ -26,40 +29,57 @@ $(function() {
     users_list.append(html);
   }
 
-  $("#user-search-field").on("keyup", function() {
-    var input = $("#user-search-field").val();
+  function addMember(user_id) {
+    let html = `<input value="${user_id}" name="group[user_ids][]" type="hidden" id="group_user_ids_${user_id}" />`;
+    $(`#${user_id}`).append(html);
+  }
 
-    $.ajax({
-      type: 'GET',
-      url: '/users',
-      data: { keyword: input },
-      dataType: 'json'
-    })
+  $(function(){
+    $("#user-search-field").on("keyup", function() {
+      var input = $("#user-search-field").val();
+      console.log(input);
 
-    .done(function(data) {
-      $("#user-search-result").empty();
-      if (input.length !== 0 && data != input) {
-        data.forEach(function(user){
-          appendMembers(user);
-        });
-      }
-      else {
-        appendErrMsgToHTML("一致するユーザーはいません");
-      }
-     })
-     .fail(function() {
-      alert('検索に失敗しました');
-    })
-  })
+      $.ajax({
+        type: 'GET',
+        url: '/users',
+        data: { keyword: input },
+        dataType: 'json'
+      })
 
-  $(document).on("click", ".chat-group-user__btn--add",function(){
-    var user_id = $(this).attr("data-user-id")
-    var name = $(this).attr("data-user-name")
-    appendUser(user_id,name)
-    $(this).parent().remove();
-  })
+      .done(function(user) {
+        $("#user-search-result").empty();
+          if (user.length !== 0) {
+            user.forEach(function(user){
+              appendMembers(user)
+            });
+          } else if (input.length == 0) {
+            return false;
+          }
+          else {
+            appendNoUserToSearchList();
+          }
+        })
+      .fail(function() {
+        alert('ユーザー検索に失敗しました');
+      })
 
-  $(document).on("click", ".user-search-remove",function(){
-    $(this).parent().remove();
-  })
+    
+
+
+  });
+  });
+
+  $(function(){
+    $(document).on('click', '.chat-group-user__btn--add', function() {
+      var name = $(this).attr("data-user-name");
+      var user_id = $(this).attr("data-user-id");
+      $(this).parent().remove();
+      appendUser(user_id,name);
+      addMember(user_id);
+    });
+  
+  　    $(document).on("click", '.user-search-remove', function() {
+      $(this).parent().remove();
+    });
+  });
 });
