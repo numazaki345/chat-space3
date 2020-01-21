@@ -1,4 +1,5 @@
 .side-bar {
+  background-color: $side_blue_light;
   box-sizing: border-box;
   color: $white;
   width: 300px;
@@ -25,13 +26,17 @@
     }
   }
 
-  .groups {
+  .groups{
     background-color: $side_blue_light;
     height: calc(100vh - 100px);
-    padding: 0 20px;
+    padding: 20px 20px 0px;
+    overflow-y: scroll;
+    width: 260px;
+  }
+    .groups::-webkit-scrollbar{
+      display:none;
+  }
     .group {
-      box-sizing: border-box;
-      padding: 20px 0 40px;
       &__name {
         font-size: $side_group_name;
         color: $white;
@@ -42,5 +47,4 @@
         margin-top: 5px;
       }
     }
-  }
-}
+ }
