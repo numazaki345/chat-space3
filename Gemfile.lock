@@ -199,19 +199,11 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.1.20)
       execjs (>= 0.3.0, < 3)
-<<<<<<< Updated upstream
-    warden (1.2.8)
-      rack (>= 2.0.6)
-=======
-<<<<<<< Updated upstream
-=======
     unicorn (5.4.1)
       kgio (~> 2.6)
       raindrops (~> 0.7)
     warden (1.2.8)
       rack (>= 2.0.6)
->>>>>>> Stashed changes
->>>>>>> Stashed changes
     web-console (3.7.0)
       actionview (>= 5.0)
       activemodel (>= 5.0)
