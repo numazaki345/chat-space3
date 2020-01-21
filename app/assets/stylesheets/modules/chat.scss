@@ -1,11 +1,9 @@
 .chat {
   width: calc(100% - 300px);
-}
   .header {
     box-sizing: border-box;
     height: 100px;
     padding: 0 40px;
-  }
     .left-header {
       float: left;
       &__title {
@@ -33,16 +31,13 @@
       margin-top: 28px;
       padding: 0 20px;
     }
+  }
+
   .messages {
-    overflow-y: scroll;
     background-color: #FAFAFA;
     box-sizing: border-box;
     padding: 46px 40px 0;
-    height: calc(100vh - 190px);
-  }
-   .messages::-webkit-scrollbar{
-    display:none;
-}
+    height: calc(100% - 100px - 90px);
     .message {
       .upper-message {
         display: flex;
@@ -57,7 +52,6 @@
           padding-left: 10px;
         }
       }
-    }
       .lower-message {
         margin-top: 10px;
         &__content {
@@ -66,6 +60,9 @@
           margin-bottom: 40px;
         }
       }
+    }
+  }
+
   .form {
     background-color: #DDDDDD;
     box-sizing: border-box;
@@ -101,3 +98,4 @@
       padding: 0 30px;
     }
   }
+}
