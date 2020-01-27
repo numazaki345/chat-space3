@@ -39,6 +39,7 @@ $(function () {
       var chat = buildHTML(data);
       $('.messages').append(chat);
       $("#new_message")[0].reset();
+      $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight});
       $('.js-form__text-field').val('');
     })
     .fail(function(data) {
@@ -63,9 +64,9 @@ $(function () {
         var insertHTML = '';
         messages.forEach(function (message) {
           insertHTML = buildHTML(message);
-          $('.messages').append(insertHTML);
         })
-        $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
+        $('.messages').append(insertHTML);
+        $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight});
         $("#new_message")[0].reset();
         $(".form__submit").prop("disabled", false);
        }
