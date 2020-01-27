@@ -2,20 +2,20 @@ $(function () {
 
   function buildHTML(message) {
     
-    image = (message.image) ? `<img class= "lower-message__image" src=${message.image} >` : ""; 
+   var image = (message.image) ? `<img class= "lower-message__image" src=${message.image} >` : ""; 
 
     var html = `<div class="message" data-message-id="${message.id}"> 
           <div class="upper-message">
             <div class="upper-message__user-name">
-              ${message.user_name}
+              ${message.name}
             </div>
             <div class="upper-message__date">
-              ${message.date}
+              ${message.time}
             </div>
           </div>
           <div class="lower-meesage">
             <p class="lower-message__content">
-              ${message.content}
+              ${message.body}
             </p>
             ${image}
           </div>
@@ -37,7 +37,8 @@ $(function () {
     })
     .done(function(data) {
       var chat = buildHTML(data);
-      $('.chat-wrapper').prepend(chat);
+      $('.messages').append(chat);
+      $("#new_message")[0].reset();
       $('.js-form__text-field').val('');
     })
     .fail(function(data) {
@@ -74,5 +75,5 @@ $(function () {
       });
     }
   };
-  setInterval(reloadMessages, 7000);
+   setInterval(reloadMessages, 7000);
 })
