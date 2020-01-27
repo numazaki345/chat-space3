@@ -58,12 +58,16 @@ $(function () {
         data: {last_id: last_message_id} 
       })
       .done(function (messages) { 
+        if (messages.length !== 0){
         var insertHTML = '';
         messages.forEach(function (message) {
           insertHTML = buildHTML(message);
           $('.messages').append(insertHTML);
         })
         $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
+        $("#new_message")[0].reset();
+        $(".form__submit").prop("disabled", false);
+       }
       })
       .fail(function () {
         alert('自動更新に失敗しました');
