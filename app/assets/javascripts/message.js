@@ -2,20 +2,20 @@ $(function () {
 
   function buildHTML(message) {
     
-   var image = (message.image) ? `<img class= "lower-message__image" src=${message.image} >` : ""; 
+    image = (message.image) ? `<img class= "lower-message__image" src=${message.image} >` : ""; 
 
     var html = `<div class="message" data-message-id="${message.id}"> 
           <div class="upper-message">
             <div class="upper-message__user-name">
-              ${message.name}
+              ${message.user_name}
             </div>
             <div class="upper-message__date">
-              ${message.time}
+              ${message.date}
             </div>
           </div>
           <div class="lower-meesage">
             <p class="lower-message__content">
-              ${message.body}
+              ${message.content}
             </p>
             ${image}
           </div>
@@ -37,7 +37,7 @@ $(function () {
     })
     .done(function(data) {
       var chat = buildHTML(data);
-      $('.messages').append(chat);
+      $('.chat-wrapper').prepend(chat);
       $("#new_message")[0].reset();
       $('.messages').animate({ scrollTop: $('.messages')[0].scrollHeight});
       $('.js-form__text-field').val('');
@@ -59,7 +59,8 @@ $(function () {
         dataType: 'json', 
         data: {last_id: last_message_id} 
       })
-      .done(function (messages) { 
+      .done(function (messages) {
+        console.log(messages)
         if (messages.length !== 0){
         var insertHTML = '';
         messages.forEach(function (message) {
@@ -76,5 +77,5 @@ $(function () {
       });
     }
   };
-   setInterval(reloadMessages, 7000);
+  setInterval(reloadMessages, 7000);
 })
